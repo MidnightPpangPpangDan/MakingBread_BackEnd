@@ -1,3 +1,29 @@
 spring:
+  config:
+    import: optional:file:.env.development[.properties]
   application:
     name: MakingBackend
+  datasource:
+    url: ${dbUrl}
+    username: ${dbUserName}
+    password: ${dbPassWord}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+custom:
+  jwt:
+    payload:
+      issuer: making-backend
+      subject-access-token: access-token
+      subject-refresh-token: refresh-token
+      audience: unity-client
+    secrets:
+      app-key: making-backend-access-token-secret-key-123456
+      vanilla-key: making-backend-refresh-token-secret-key-123456
+    validations:
+      access: 900
+      refresh: 1209600
